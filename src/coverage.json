@@ -1,21 +1,54 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T09:06:26.927Z",
+  "generatedAt": "2026-02-06T18:01:41.901Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 0,
-    "implemented": 0,
-    "items": []
+    "total": 3,
+    "implemented": 1,
+    "items": [
+      {
+        "id": "REQ-15",
+        "summary": "Seed exactly 5 sample PromptRecord entries into the Motoko canister storage so they exist without any manual admin action, are persisted as part of the canister state, and do not require Internet Identity authentication to be listed.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Assign the 5 seeded prompts across the following backend categories: #videoGeneration (Video), #photoGeneration (Photo), #marketing (Marketing), #socialMedia (Social Media), and #business (Business). Ensure each prompt has non-empty title, description, fullText, and tags, and set isPremium = false so they are visible to non-premium users.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Ensure the Prompt Library page displays the seeded prompts by fetching from the backend (getAllPrompts) and rendering them in the existing prompt grid, including correct category labeling via the existing categoryConfig mapping.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/PromptLibraryPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/PromptLibraryPage.tsx"
+        ]
+      }
+    ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
-    "build-template/README.md",
+    "caffeine.lock.json",
     "feature_evidence.json",
+    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/PromptLibraryPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -11,7 +11,12 @@ export function useGetAllPrompts() {
     queryKey: ['prompts'],
     queryFn: async () => {
       if (!actor) return [];
-      return actor.getAllPrompts();
+      try {
+        return await actor.getAllPrompts();
+      } catch (error) {
+        console.error('Failed to fetch prompts:', error);
+        return [];
+      }
     },
     enabled: !!actor && !isFetching,
   });
@@ -42,7 +47,12 @@ export function useGetPromptsByCategory(category: PromptCategory) {
     queryKey: ['prompts', 'category', category],
     queryFn: async () => {
       if (!actor) return [];
-      return actor.getPromptsByCategory(category);
+      try {
+        return await actor.getPromptsByCategory(category);
+      } catch (error) {
+        console.error('Failed to fetch prompts by category:', error);
+        return [];
+      }
     },
     enabled: !!actor && !isFetching,
   });
@@ -133,7 +143,12 @@ export function useGetAllBlogPosts() {
     queryKey: ['blogPosts'],
     queryFn: async () => {
       if (!actor) return [];
-      return actor.getAllBlogPosts();
+      try {
+        return await actor.getAllBlogPosts();
+      } catch (error) {
+        console.error('Failed to fetch blog posts:', error);
+        return [];
+      }
     },
     enabled: !!actor && !isFetching,
   });

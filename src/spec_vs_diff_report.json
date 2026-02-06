@@ -1,20 +1,35 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T09:06:26.925Z",
-  "summary": "BuildRequest contains no requirements or acceptance criteria, but the diff modifies project_state.json to describe and track many new product features (including multiple referenced REQ IDs) that were not requested.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-02-06T18:01:41.899Z",
+  "summary": "Diff adds a backend migration module that appears to seed initial PromptRecord data and updates the Prompt Library page to fetch/render prompts via useGetAllPrompts. However, due to truncation, the diff does not fully evidence that exactly 5 prompts are seeded across the required categories, nor that seeding is idempotent/persisted in canister state across init/upgrade paths.",
+  "missing_requirements": [
     {
-      "description": "Added/updated project state to describe building “PromptFarm AI” with extensive SaaS features (prompt library/marketplace, categories, search/filters, prompt details & copy, user accounts/favorites/dashboard, monetization, marketing pages, SEO) and enumerated multiple features tied to REQ-1..REQ-5 (and more) despite the BuildRequest having no requirements.",
-      "reason": "The BuildRequest explicitly lists no requirements and no acceptance criteria, so implementing/tracking these features is not grounded in the request.",
+      "id": "REQ-15",
+      "requirement": "Seed exactly 5 sample PromptRecord entries into the Motoko canister storage, persisted as part of canister state, listed without authentication, and seeding is idempotent (no duplicates on repeated init/upgrade).",
+      "reason": "The diff shows a new migration module with initial prompts and main.mo sets nextPromptId = 6, but the provided/truncated snippets do not show (a) all 5 seeded records, (b) the actual init/upgrade seeding pathway logic that prevents duplicates, or (c) the stable-state persistence mechanism used to ensure they survive runtime/upgrade.",
       "evidence": [
-        "project_state.json"
+        "backend/migration.mo",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "requirement": "Assign the 5 seeded prompts exactly 1 each to #videoGeneration, #photoGeneration, #marketing, #socialMedia, #business; ensure non-empty title/description/fullText/tags and isPremium=false for all.",
+      "reason": "The migration file snippet only clearly shows seeded prompts for #videoGeneration and #photoGeneration; the remainder of the seeded prompts (including categories #socialMedia and #business) are not visible due to truncation, so the exact category distribution and field completeness for all 5 cannot be verified from the diff summary.",
+      "evidence": [
+        "backend/migration.mo (truncated)"
       ]
     }
   ],
-  "confidence": 0.84,
+  "hallucinated_features": [],
+  "confidence": 0.55,
   "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/PromptLibraryPage.tsx",
     "project_state.json"
   ]
 }

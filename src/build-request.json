@@ -1,10 +1,74 @@
 {
   "kind": "build_request",
-  "title": "Untitled request",
+  "title": "Seed 5 sample prompts (Video, Photo, Marketing, Social Media, Business) and display them in Prompt Library",
   "priority": "normal",
-  "requirements": [],
-  "constraints": [],
-  "nonGoals": [],
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "text": "Seed exactly 5 sample PromptRecord entries into the Motoko canister storage so they exist without any manual admin action, are persisted as part of the canister state, and do not require Internet Identity authentication to be listed.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create and save 5 sample AI prompts in the database."
+        ]
+      },
+      "acceptanceCriteria": [
+        "On a fresh deploy, calling getAllPrompts returns 5 prompts without requiring any authenticated caller.",
+        "The seeded prompts are stored in the canister’s prompt collection and survive normal runtime usage (they are not only frontend mock data).",
+        "Seeding is idempotent: repeated initialization/upgrade paths must not create duplicate prompts (e.g., if prompts already exist, do not seed again)."
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Assign the 5 seeded prompts across the following backend categories: #videoGeneration (Video), #photoGeneration (Photo), #marketing (Marketing), #socialMedia (Social Media), and #business (Business). Ensure each prompt has non-empty title, description, fullText, and tags, and set isPremium = false so they are visible to non-premium users.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Assign them to categories (Video, Photo, Marketing, Social Media, Business)."
+        ]
+      },
+      "acceptanceCriteria": [
+        "There is exactly 1 seeded prompt in each of these categories: #videoGeneration, #photoGeneration, #marketing, #socialMedia, #business.",
+        "All 5 seeded prompts have isPremium = false.",
+        "All 5 seeded prompts have non-empty title, description, and fullText fields.",
+        "Each seeded prompt has at least 1 tag in tags."
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "text": "Ensure the Prompt Library page displays the seeded prompts by fetching from the backend (getAllPrompts) and rendering them in the existing prompt grid, including correct category labeling via the existing categoryConfig mapping.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Make sure they are visible on the prompt library page."
+        ]
+      },
+      "acceptanceCriteria": [
+        "After deploy with seeding in place, the Prompt Library page shows 5 prompt cards (when no filters are applied).",
+        "Each seeded prompt card renders its title and description and shows the correct category badge label for its category.",
+        "No frontend-only mock prompt list is introduced; the page continues to source prompts from useGetAllPrompts / actor.getAllPrompts."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not edit frontend immutable paths listed in SYSTEM_CONTEXT (compose existing hooks/components instead).",
+    "User-facing text must be in English."
+  ],
+  "nonGoals": [
+    "Creating 20 sample prompts (only 5 are required).",
+    "Building an admin UI for managing prompts.",
+    "Adding new categories beyond the existing PromptCategory variants."
+  ],
   "imageRequirements": {
     "required": [],
     "edits": []

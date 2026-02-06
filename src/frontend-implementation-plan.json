@@ -1,6 +1,28 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Untitled request",
-  "requirements": []
+  "title": "Display seeded backend prompts in Prompt Library",
+  "requirements": [
+    {
+      "id": "REQ-17",
+      "summary": "Prompt Library fetches prompts from the backend and renders them in the existing grid with correct category labels via categoryConfig.",
+      "acceptanceCriteria": [
+        "After deploy with seeding in place, the Prompt Library page shows 5 prompt cards (when no filters are applied).",
+        "Each seeded prompt card renders its title and description and shows the correct category badge label for its category.",
+        "No frontend-only mock prompt list is introduced; the page continues to source prompts from useGetAllPrompts / actor.getAllPrompts."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Harden useGetAllPrompts to always source data from actor.getAllPrompts (no mock fallback), and gracefully handle backend errors (e.g., try/catch returning an empty list while surfacing console error) so the Prompt Library can reliably display the seeded prompts for anonymous users."
+        },
+        {
+          "path": "frontend/src/pages/PromptLibraryPage.tsx",
+          "operation": "modify",
+          "description": "Ensure Prompt Library continues to use useGetAllPrompts as the single source of truth and validate/normalize any incoming category search param to a known PromptCategory (else default to 'all') so seeded prompt categories map correctly through the existing PromptCard + categoryConfig labeling."
+        }
+      ]
+    }
+  ]
 }

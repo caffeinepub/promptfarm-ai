@@ -2,15 +2,17 @@ import Map "mo:core/Map";
 import Text "mo:core/Text";
 import List "mo:core/List";
 import Int "mo:core/Int";
-import Iter "mo:core/Iter";
 import Time "mo:core/Time";
 import Array "mo:core/Array";
 import Order "mo:core/Order";
 import Principal "mo:core/Principal";
+import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   type PromptCategory = {
     #videoGeneration;
@@ -56,7 +58,7 @@ actor {
     timestamp : Int;
   };
 
-  public type UserProfile = {
+  type UserProfile = {
     name : Text;
     hasPremiumMembership : Bool;
   };
@@ -71,10 +73,10 @@ actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
-  var nextPromptId = 1;
+  var nextPromptId = 6;
   var nextBlogPostId = 1;
 
-  // Helper function to check if user has premium access
+  // Helper function to check if a user has premium access
   func hasPremiumAccess(caller : Principal) : Bool {
     if (AccessControl.isAdmin(accessControlState, caller)) {
       return true;

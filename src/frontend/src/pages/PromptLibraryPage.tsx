@@ -8,13 +8,34 @@ import PromptFilters, { type FilterState } from '../components/prompts/PromptFil
 import Seo from '../components/seo/Seo';
 import { PromptCategory } from '../backend';
 
+// Valid category keys from the backend
+const VALID_CATEGORIES = [
+  'videoGeneration',
+  'photoGeneration',
+  'cgiAds',
+  'marketing',
+  'storytelling',
+  'business',
+  'socialMedia',
+  'design',
+];
+
+function isValidCategory(category: string | undefined): category is PromptCategory {
+  return category !== undefined && VALID_CATEGORIES.includes(category);
+}
+
 export default function PromptLibraryPage() {
   const searchParams = useSearch({ strict: false }) as { category?: string };
   const { data: prompts = [], isLoading } = useGetAllPrompts();
 
+  // Validate and normalize category from search params
+  const initialCategory = isValidCategory(searchParams.category)
+    ? (searchParams.category as PromptCategory)
+    : 'all';
+
   const [filters, setFilters] = useState<FilterState>({
     search: '',
-    category: (searchParams.category as PromptCategory) || 'all',
+    category: initialCategory,
     tier: 'all',
     sort: 'all',
   });
