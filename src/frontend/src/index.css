@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.625rem;
+        
+        /* Light mode - Electric blue/purple gradient theme */
+        --background: 1 0 0;
+        --foreground: 0.145 0 0;
+        --card: 1 0 0;
+        --card-foreground: 0.145 0 0;
+        --popover: 1 0 0;
+        --popover-foreground: 0.145 0 0;
+        
+        /* Primary: Electric blue */
+        --primary: 0.55 0.25 260;
+        --primary-foreground: 0.99 0 0;
+        
+        /* Secondary: Soft purple */
+        --secondary: 0.92 0.05 280;
+        --secondary-foreground: 0.2 0 0;
+        
+        --muted: 0.96 0.01 260;
+        --muted-foreground: 0.5 0.02 260;
+        
+        /* Accent: Purple gradient */
+        --accent: 0.88 0.08 280;
+        --accent-foreground: 0.2 0 0;
+        
+        --destructive: 0.577 0.245 27.325;
+        --destructive-foreground: 0.985 0 0;
+        
+        --border: 0.92 0.01 260;
+        --input: 0.92 0.01 260;
+        --ring: 0.55 0.25 260;
+        
+        --chart-1: 0.646 0.222 41.116;
+        --chart-2: 0.6 0.118 184.704;
+        --chart-3: 0.398 0.07 227.392;
+        --chart-4: 0.828 0.189 84.429;
+        --chart-5: 0.769 0.188 70.08;
+    }
+
+    .dark {
+        /* Dark mode - Futuristic AI theme */
+        --background: 0.12 0.02 260;
+        --foreground: 0.98 0.01 260;
+        --card: 0.18 0.02 260;
+        --card-foreground: 0.98 0.01 260;
+        --popover: 0.15 0.02 260;
+        --popover-foreground: 0.98 0.01 260;
+        
+        /* Primary: Bright electric blue */
+        --primary: 0.65 0.28 260;
+        --primary-foreground: 0.98 0 0;
+        
+        /* Secondary: Deep purple */
+        --secondary: 0.25 0.08 280;
+        --secondary-foreground: 0.98 0.01 260;
+        
+        --muted: 0.22 0.03 260;
+        --muted-foreground: 0.65 0.03 260;
+        
+        /* Accent: Vibrant purple */
+        --accent: 0.35 0.12 280;
+        --accent-foreground: 0.98 0.01 260;
+        
+        --destructive: 0.60 0.25 25;
+        --destructive-foreground: 0.98 0 0;
+        
+        --border: 0.25 0.03 260;
+        --input: 0.25 0.03 260;
+        --ring: 0.65 0.28 260;
+        
+        --chart-1: 0.488 0.243 264.376;
+        --chart-2: 0.696 0.17 162.48;
+        --chart-3: 0.769 0.188 70.08;
+        --chart-4: 0.627 0.265 303.9;
+        --chart-5: 0.645 0.246 16.439;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+    
+    /* Smooth animations */
+    * {
+        @apply transition-colors duration-200;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        @apply bg-muted/30;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        @apply bg-muted-foreground/30 rounded-full;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-muted-foreground/50;
+    }
+}

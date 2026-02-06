@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Build PromptFarm AI: a modern, premium SaaS-style, fast-loading AI Prompt Library & Marketplace with 1000+ prompts, category browsing, search/filters, prompt details with copy, user accounts with favorites/dashboard, optional monetization (free vs premium + memberships), and supporting marketing pages (blog/newsletter/about/contact) with SEO optimization.",
+  "architectural_notes": [
+    "Use a premium SaaS-style design system with minimal futuristic AI theme, including dark/light mode and smooth animations.",
+    "Prioritize performance/fast-loading and SEO (SEO-friendly routes/URLs and optimized metadata).",
+    "Seed prompt content per category for demo purposes (e.g., 50 prompts/category) and ensure the Prompt Library page reads from this seeded dataset."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-the-app-shell-and-navigation-for-promptfarm-ai-including-responsive-header-navigation-footer-and-route-structure-for-home-prompt-library-categories-optional-landing-prompt-details-blog-about-contact-newsletter-signup-auth-login-signup-and-user-dashboard",
+      "title": "Create the app shell and navigation for “PromptFarm AI”, including responsive header/navigation, footer, and route structure for: Home, Prompt Library, Categories (optional landing), Prompt Details, Blog, About, Contact, Newsletter signup, Auth (login/signup), and User Dashboard.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-homepage-with-a-premium-saas-style-layout-including-hero-headline-1000-powerful-ai-prompts-for-video-photo-ads-creativity-subheadline-unlock-the-power-of-ai-with-ready-to-use-professional-prompts-and-two-cta-buttons-explore-prompts-browse-categories-plus-a-categories-section-that-displays-the-specified-categories-with-icons",
+      "title": "Implement the Homepage with a premium SaaS-style layout including: hero headline “1000+ Powerful AI Prompts for Video, Photo, Ads & Creativity”, subheadline “Unlock the power of AI with ready-to-use professional prompts.”, and two CTA buttons (“Explore Prompts”, “Browse Categories”), plus a Categories section that displays the specified categories with icons.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-global-ui-theming-and-interaction-polish-minimal-futuristic-ai-themed-ui-dark-light-mode-toggle-electric-blue-purple-gradient-as-the-primary-accent-clean-typography-smooth-non-blocking-animations-and-fully-responsive-layout",
+      "title": "Implement global UI theming and interaction polish: minimal futuristic AI-themed UI, dark + light mode toggle, electric blue/purple gradient as the primary accent, clean typography, smooth (non-blocking) animations, and fully responsive layout.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-prompt-library-page-with-a-fast-loading-grid-of-prompt-cards-each-card-must-show-title-short-description-category-tag-a-one-click-copy-button-and-a-view-details-button-that-navigates-to-the-prompt-details-page",
+      "title": "Build the Prompt Library page with a fast-loading grid of prompt cards. Each card must show: title, short description, category tag, a one-click Copy button, and a View Details button that navigates to the Prompt Details page.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-smart-search-and-filtering-system-on-the-prompt-library-page-supporting-text-search-filter-by-category-popular-new-and-free-premium-filters-must-be-combinable-and-update-results-without-a-full-page-reload",
+      "title": "Implement a smart search and filtering system on the Prompt Library page supporting: text search, filter by category, popular, new, and free/premium. Filters must be combinable and update results without a full page reload.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-prompt-details-page-that-displays-full-prompt-text-one-click-copy-button-usage-instructions-and-an-example-results-section-textual-placeholders-are-acceptable",
+      "title": "Create the Prompt Details page that displays: full prompt text, one-click copy button, usage instructions, and an Example results section (textual placeholders are acceptable).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-user-authentication-using-internet-identity-and-add-user-account-flows-for-login-logout-and-a-basic-account-area-entry-point-from-the-header",
+      "title": "Implement user authentication using Internet Identity and add user account flows for: login, logout, and a basic account area entry point from the header.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-user-features-tied-to-the-authenticated-identity-save-favorite-prompts-view-favorites-in-the-user-dashboard-and-allow-users-to-download-prompts-e-g-export-selected-prompts-as-a-text-file",
+      "title": "Implement user features tied to the authenticated identity: save favorite prompts, view favorites in the user dashboard, and allow users to download prompts (e.g., export selected prompts as a text file).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-optional-monetization-ready-structure-support-marking-prompts-as-free-vs-premium-create-ui-sections-for-free-prompts-and-premium-prompts-include-a-membership-plan-page-section-copy-and-pricing-can-be-placeholders-and-gate-premium-prompt-access-in-the-ui-for-non-members-membership-purchase-flow-is-not-required",
+      "title": "Implement optional monetization-ready structure: support marking prompts as Free vs Premium; create UI sections for Free prompts and Premium prompts; include a Membership Plan page/section (copy and pricing can be placeholders) and gate Premium prompt access in the UI for non-members (membership purchase flow is not required).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-marketing-content-pages-blog-index-blog-post-page-ai-tools-prompt-engineering-content-can-be-seeded-as-sample-posts-newsletter-signup-form-store-emails-in-backend-about-page-and-contact-page-with-a-contact-form-store-submissions-in-backend",
+      "title": "Build marketing/content pages: Blog index + Blog post page (AI tools & prompt engineering content can be seeded as sample posts), Newsletter signup form (store emails in backend), About page, and Contact page with a contact form (store submissions in backend).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-seo-and-performance-foundations-seo-friendly-urls-for-prompts-and-blog-posts-page-level-meta-titles-descriptions-and-fast-loading-behavior-code-splitting-per-route-where-appropriate-optimized-asset-usage",
+      "title": "Implement SEO and performance foundations: SEO-friendly URLs for prompts and blog posts, page-level meta titles/descriptions, and fast-loading behavior (code-splitting per route where appropriate, optimized asset usage).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-visual-assets-and-integrate-them-into-the-ui-a-brand-logo-a-subtle-futuristic-hero-background-and-a-consistent-icon-set-style-for-the-10-categories",
+      "title": "Add generated static visual assets and integrate them into the UI: a brand logo, a subtle futuristic hero background, and a consistent icon set/style for the 10 categories.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Design and build a responsive homepage with hero, CTAs, and categories section (with icons) in a minimal futuristic AI-themed SaaS layout",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Create Prompt Library page with grid prompt cards (title, description, category tag, copy button, view details)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement smart search and filtering (category, popular, new, free/premium) for prompt discovery",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Create Prompt Details page with full prompt text, one-click copy, usage instructions, and example results section",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add user authentication (login/signup) and user features: favorites, downloads, and a user dashboard",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Optional monetization setup: free vs premium prompts, premium section, and membership plan option",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add content/marketing pages: blog (AI tools & prompt engineering), newsletter signup, about page, contact page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "SEO optimization and performance: SEO-friendly URLs, optimized meta titles/descriptions, and fast-loading implementation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "UI theming: dark + light mode, electric blue/purple gradient primary theme, smooth animations, clean typography",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add prompt data modeling and persistence in the single Motoko backend actor, including: prompt records (title, description, category, full text, tags/flags for popular/new, free/premium), and user-specific favorites. Provide query/update methods to support listing, searching/filtering, fetching by ID, and toggling favorites.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Seed the app with a substantial prompt dataset suitable for demonstrating “1000+” prompts, ensuring categories match the specified list and that prompts cover video generation, photo generation, CGI ads, marketing, storytelling, business, social media, and design use cases.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Seed the app with 50 sample AI prompts per main category (video, photo, CGI ads, marketing, social media, business, storytelling, YouTube, design) and ensure they display in the Prompt Library page for users",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "PromptFarm AI",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

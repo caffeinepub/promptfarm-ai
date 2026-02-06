@@ -1,0 +1,20 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T09:06:26.925Z",
+  "summary": "BuildRequest contains no requirements or acceptance criteria, but the diff modifies project_state.json to describe and track many new product features (including multiple referenced REQ IDs) that were not requested.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Added/updated project state to describe building “PromptFarm AI” with extensive SaaS features (prompt library/marketplace, categories, search/filters, prompt details & copy, user accounts/favorites/dashboard, monetization, marketing pages, SEO) and enumerated multiple features tied to REQ-1..REQ-5 (and more) despite the BuildRequest having no requirements.",
+      "reason": "The BuildRequest explicitly lists no requirements and no acceptance criteria, so implementing/tracking these features is not grounded in the request.",
+      "evidence": [
+        "project_state.json"
+      ]
+    }
+  ],
+  "confidence": 0.84,
+  "changed_files": [
+    "project_state.json"
+  ]
+}
