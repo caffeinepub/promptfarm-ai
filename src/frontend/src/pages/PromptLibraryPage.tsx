@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearch } from '@tanstack/react-router';
 import { useGetAllPrompts } from '../hooks/useQueries';
 import { useDebouncedValue } from '../hooks/useDebouncedValue';
@@ -39,6 +39,18 @@ export default function PromptLibraryPage() {
     tier: 'all',
     sort: 'all',
   });
+
+  // Sync filters with URL params when they change
+  useEffect(() => {
+    const urlCategory = isValidCategory(searchParams.category)
+      ? (searchParams.category as PromptCategory)
+      : 'all';
+    
+    setFilters((prev) => ({
+      ...prev,
+      category: urlCategory,
+    }));
+  }, [searchParams.category]);
 
   const debouncedSearch = useDebouncedValue(filters.search, 300);
 

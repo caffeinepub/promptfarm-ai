@@ -1,45 +1,36 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Prompt library app: seed sample AI prompts into a database with categories and display them on the prompt library page.",
+  "summary": "Expand the application's prompt library by adding more high-quality AI prompts across all categories and ensuring they are visible in the prompt library UI.",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "existing_features": [
-    {
-      "id": "feature-ensure-the-prompt-library-page-displays-the-seeded-prompts-by-fetching-from-the-backend-getallprompts-and-rendering-them-in-the-existing-prompt-grid-including-correct-category-labeling-via-the-existing-categoryconfig-mapping",
-      "title": "Ensure the Prompt Library page displays the seeded prompts by fetching from the backend (getAllPrompts) and rendering them in the existing prompt grid, including correct category labeling via the existing categoryConfig mapping.",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    }
-  ],
+  "existing_features": [],
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Seed 5 sample AI prompts in the database, assign to categories (Video, Photo, Marketing, Social Media, Business), and ensure they appear on the prompt library page.",
+      "summary": "Add 30 more high-quality AI prompts across all categories and make them visible in the prompt library.",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Seed exactly 5 sample PromptRecord entries into the Motoko canister storage so they exist without any manual admin action, are persisted as part of the canister state, and do not require Internet Identity authentication to be listed.",
+      "summary": "Add 30 new high-quality AI prompt records distributed across the existing backend categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in the canister state and returned by the existing prompt listing APIs (e.g., getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
       "reqIds": [
-        "REQ-15"
+        "REQ-1"
       ],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Assign the 5 seeded prompts across the following backend categories: #videoGeneration (Video), #photoGeneration (Photo), #marketing (Marketing), #socialMedia (Social Media), and #business (Business). Ensure each prompt has non-empty title, description, fullText, and tags, and set isPremium = false so they are visible to non-premium users.",
+      "summary": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current prompt fetch flow (useGetAllPrompts → PromptLibraryPage) without adding new UI controls or requiring manual admin creation steps.",
       "reqIds": [
-        "REQ-16"
+        "REQ-2"
       ],
       "status": "pending"
     }
   ],
-  "projectName": "Seed 5 sample prompts (Video, Photo, Marketing, Social Media, Business) and display them in Prompt Library",
+  "projectName": "Seed 30 additional prompts and surface them in the Prompt Library",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

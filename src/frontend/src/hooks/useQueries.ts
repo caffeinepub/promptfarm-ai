@@ -19,6 +19,8 @@ export function useGetAllPrompts() {
       }
     },
     enabled: !!actor && !isFetching,
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 }
 
@@ -55,6 +57,51 @@ export function useGetPromptsByCategory(category: PromptCategory) {
       }
     },
     enabled: !!actor && !isFetching,
+    staleTime: 0,
+    refetchOnMount: 'always',
+  });
+}
+
+// Admin check
+export function useIsCallerAdmin() {
+  const { actor, isFetching: actorFetching } = useActor();
+  const { identity } = useInternetIdentity();
+
+  const query = useQuery<boolean>({
+    queryKey: ['isAdmin'],
+    queryFn: async () => {
+      if (!actor) return false;
+      try {
+        return await actor.isCallerAdmin();
+      } catch (error) {
+        console.error('Failed to check admin status:', error);
+        return false;
+      }
+    },
+    enabled: !!actor && !actorFetching && !!identity,
+    retry: false,
+  });
+
+  return {
+    ...query,
+    isLoading: actorFetching || query.isLoading,
+    isFetched: !!actor && query.isFetched,
+  };
+}
+
+// Add prompt (admin only)
+export function useAddPrompt() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (record: PromptRecord) => {
+      if (!actor) throw new Error('Actor not available');
+      return await actor.addPrompt(record);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['prompts'] });
+    },
   });
 }
 

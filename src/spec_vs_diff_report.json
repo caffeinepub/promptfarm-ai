@@ -1,35 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T18:01:41.899Z",
-  "summary": "Diff adds a backend migration module that appears to seed initial PromptRecord data and updates the Prompt Library page to fetch/render prompts via useGetAllPrompts. However, due to truncation, the diff does not fully evidence that exactly 5 prompts are seeded across the required categories, nor that seeding is idempotent/persisted in canister state across init/upgrade paths.",
+  "generatedAt": "2026-02-07T17:13:32.770Z",
+  "summary": "Diff introduces a new backend migration module with a list of new prompt records (truncated), and updates backend/main.mo to use a migration runner and adjust prompt ID sequencing. No frontend UI changes are shown. From the truncated diff, it’s not verifiable that exactly 30 new prompts are seeded into the canister’s persisted dataset and returned by existing listing APIs.",
   "missing_requirements": [
     {
-      "id": "REQ-15",
-      "requirement": "Seed exactly 5 sample PromptRecord entries into the Motoko canister storage, persisted as part of canister state, listed without authentication, and seeding is idempotent (no duplicates on repeated init/upgrade).",
-      "reason": "The diff shows a new migration module with initial prompts and main.mo sets nextPromptId = 6, but the provided/truncated snippets do not show (a) all 5 seeded records, (b) the actual init/upgrade seeding pathway logic that prevents duplicates, or (c) the stable-state persistence mechanism used to ensure they survive runtime/upgrade.",
+      "id": "REQ-1",
+      "requirement": "Exactly 30 additional PromptRecord entries are added to the persisted dataset used by the canister and returned by existing listing APIs (getAllPrompts/getPromptsByCategory), spread across all existing categories with required fields/tags and correct flags.",
+      "reason": "The added prompt list in backend/migration.mo is truncated and only shows part of the newPromptRecords array (starting with video generation items). The backend/main.mo diff snippet shows empty prompt storage initialization (Map.empty) and does not include visible code proving that the newPromptRecords are actually inserted into the persisted prompt dataset and thus returned by getAllPrompts/getPromptsByCategory. Therefore the acceptance criteria (exactly 30, persisted, distributed across all categories, and returned by listing APIs) cannot be confirmed from the provided diff summary.",
       "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "requirement": "Assign the 5 seeded prompts exactly 1 each to #videoGeneration, #photoGeneration, #marketing, #socialMedia, #business; ensure non-empty title/description/fullText/tags and isPremium=false for all.",
-      "reason": "The migration file snippet only clearly shows seeded prompts for #videoGeneration and #photoGeneration; the remainder of the seeded prompts (including categories #socialMedia and #business) are not visible due to truncation, so the exact category distribution and field completeness for all 5 cannot be verified from the diff summary.",
-      "evidence": [
-        "backend/migration.mo (truncated)"
+        "backend/migration.mo (truncated newPromptRecords array; only partial entries visible)",
+        "backend/main.mo (truncated; shows prompts initialized as Map.empty and migration runner import, but no visible seeding/insertion logic)"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.55,
+  "hallucinated_features": [
+    {
+      "description": "Introduced a separate backend migration module and migration runner wiring for upgrades (backend/migration.mo + `(with migration = Migration.run)` in main actor).",
+      "reason": "The BuildRequest asks to seed 30 prompts and surface them via existing APIs/UI flow; it does not request adding a new migration framework/module. This is additional implementation beyond the stated requirements.",
+      "evidence": [
+        "backend/migration.mo",
+        "backend/main.mo (imports Migration; `(with migration = Migration.run)` actor syntax)"
+      ]
+    },
+    {
+      "description": "Updated/added project tracking metadata in project_state.json with new feature request entries (AR-1/AR-2/AR-3).",
+      "reason": "The BuildRequest does not request changes to project_state.json or adding feature-request bookkeeping entries; this is unrelated to seeding prompts or surfacing them in the UI.",
+      "evidence": [
+        "project_state.json"
+      ]
+    }
+  ],
+  "confidence": 0.68,
   "changed_files": [
     "backend/main.mo",
     "backend/migration.mo",
-    "frontend-file-summaries.txt",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/PromptLibraryPage.tsx",
     "project_state.json"
   ]
 }

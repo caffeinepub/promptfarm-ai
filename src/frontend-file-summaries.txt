@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, lazy-loaded routes for all pages, theme provider, and toast notifications.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, lazy-loaded routes for all pages including the new admin prompts route, theme provider, and toast notifications.",
   "frontend/src/components/layout/AppLayout.tsx": "Layout wrapper component that renders header, main content area, and footer consistently across all pages.",
   "frontend/src/components/layout/Header.tsx": "Responsive header with logo, navigation links, theme toggle, authentication button, and mobile menu using Sheet component.",
   "frontend/src/components/layout/Footer.tsx": "Footer component with brand info, navigation links organized in columns, and attribution with caffeine.ai link.",
@@ -17,7 +17,7 @@
   "frontend/src/components/common/CopyButton.tsx": "Reusable button with clipboard copy functionality and visual success feedback using toast notifications.",
   "frontend/src/components/common/FormStatus.tsx": "Alert component displaying loading, success, or error states for form submissions.",
   "frontend/src/components/seo/Seo.tsx": "Component that updates document title and meta description for SEO optimization per page.",
-  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations with comprehensive error handling that gracefully returns empty arrays/null on failures while logging errors to console.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations with updated cache configuration to ensure fresh prompt data is fetched on every mount using staleTime: 0 and refetchOnMount: 'always' for prompt queries.",
   "frontend/src/hooks/useCurrentUserProfile.ts": "Hook wrapper for getting the current authenticated user's profile with proper loading states.",
   "frontend/src/hooks/useDebouncedValue.ts": "Custom hook that debounces a value to optimize search input performance.",
   "frontend/src/lib/promptRouting.ts": "Utility functions for building SEO-friendly prompt URLs with slugs and parsing prompt IDs from route params.",
@@ -26,7 +26,7 @@
   "frontend/src/lib/validation.ts": "Form validation functions for email, name, and message fields with error messages.",
   "frontend/src/lib/download.ts": "Utility functions for downloading prompts as text files, supporting single or bulk downloads.",
   "frontend/src/pages/HomePage.tsx": "Homepage with hero section featuring headline, CTAs, categories grid, and features showcase with gradient accents.",
-  "frontend/src/pages/PromptLibraryPage.tsx": "Prompt library page with search/filter controls, category validation from URL params, and responsive grid displaying prompts from backend with debounced search.",
+  "frontend/src/pages/PromptLibraryPage.tsx": "Prompt library page with search/filter controls, category validation from URL params synced via useEffect, and responsive grid displaying prompts from backend with debounced search.",
   "frontend/src/pages/CategoriesPage.tsx": "Dedicated categories landing page displaying all 10 categories in a grid layout.",
   "frontend/src/pages/PromptDetailsPage.tsx": "Prompt details page showing full prompt information with premium access gating and back navigation.",
   "frontend/src/pages/BlogIndexPage.tsx": "Blog index page listing all blog posts in a card grid with links to individual posts.",
@@ -38,5 +38,6 @@
   "frontend/src/pages/DashboardPage.tsx": "User dashboard with tabs for favorites management and membership status, including bulk download functionality.",
   "frontend/src/pages/MembershipPage.tsx": "Membership plans page comparing free and premium tiers with feature lists and FAQ section.",
   "frontend/src/index.css": "Global styles with OKLCH color system for electric blue/purple gradient theme, dark mode support, and smooth animations.",
-  "frontend/tailwind.config.js": "Tailwind configuration with extended theme tokens for the electric blue/purple gradient design system and Inter font."
+  "frontend/tailwind.config.js": "Tailwind configuration with extended theme tokens for the electric blue/purple gradient design system and Inter font.",
+  "frontend/src/pages/AdminPromptsPage.tsx": "Admin panel page for adding new prompts with Internet Identity authentication check, admin role authorization, form validation, and success/error handling with toast notifications."
 }

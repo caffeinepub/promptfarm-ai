@@ -1,41 +1,31 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T18:01:41.901Z",
+  "generatedAt": "2026-02-07T17:13:32.772Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 1,
+    "total": 2,
+    "implemented": 0,
     "items": [
       {
-        "id": "REQ-15",
-        "summary": "Seed exactly 5 sample PromptRecord entries into the Motoko canister storage so they exist without any manual admin action, are persisted as part of the canister state, and do not require Internet Identity authentication to be listed.",
+        "id": "REQ-1",
+        "summary": "Add 30 new high-quality AI prompt records distributed across the existing backend categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in the canister state and returned by the existing prompt listing APIs (e.g., getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-16",
-        "summary": "Assign the 5 seeded prompts across the following backend categories: #videoGeneration (Video), #photoGeneration (Photo), #marketing (Marketing), #socialMedia (Social Media), and #business (Business). Ensure each prompt has non-empty title, description, fullText, and tags, and set isPremium = false so they are visible to non-premium users.",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-17",
-        "summary": "Ensure the Prompt Library page displays the seeded prompts by fetching from the backend (getAllPrompts) and rendering them in the existing prompt grid, including correct category labeling via the existing categoryConfig mapping.",
-        "status": "implemented",
+        "id": "REQ-2",
+        "summary": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current prompt fetch flow (useGetAllPrompts → PromptLibraryPage) without adding new UI controls or requiring manual admin creation steps.",
+        "status": "missing",
         "plannedFiles": [
           "frontend/src/hooks/useQueries.ts",
           "frontend/src/pages/PromptLibraryPage.tsx"
         ],
-        "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/PromptLibraryPage.tsx"
-        ]
+        "matchedFiles": []
       }
     ]
   },
@@ -43,12 +33,8 @@
     "backend/main.mo",
     "backend/migration.mo",
     "build-request.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
-    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/PromptLibraryPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

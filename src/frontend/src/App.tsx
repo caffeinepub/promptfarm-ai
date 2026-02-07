@@ -17,6 +17,7 @@ const NewsletterPage = lazy(() => import('./pages/NewsletterPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const MembershipPage = lazy(() => import('./pages/MembershipPage'));
+const AdminPromptsPage = lazy(() => import('./pages/AdminPromptsPage'));
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -109,6 +110,12 @@ const membershipRoute = createRoute({
   component: MembershipPage,
 });
 
+const adminPromptsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/prompts',
+  component: AdminPromptsPage,
+});
+
 // Create route tree
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -123,6 +130,7 @@ const routeTree = rootRoute.addChildren([
   authRoute,
   dashboardRoute,
   membershipRoute,
+  adminPromptsRoute,
 ]);
 
 // Create router

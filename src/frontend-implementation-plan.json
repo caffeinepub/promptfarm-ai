@@ -1,26 +1,26 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Display seeded backend prompts in Prompt Library",
+  "title": "Surface newly seeded prompts in the existing Prompt Library UI",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Prompt Library fetches prompts from the backend and renders them in the existing grid with correct category labels via categoryConfig.",
+      "id": "REQ-2",
+      "summary": "Ensure Prompt Library UI automatically reflects newly seeded backend prompts via the existing fetch flow and existing filters/details routes.",
       "acceptanceCriteria": [
-        "After deploy with seeding in place, the Prompt Library page shows 5 prompt cards (when no filters are applied).",
-        "Each seeded prompt card renders its title and description and shows the correct category badge label for its category.",
-        "No frontend-only mock prompt list is introduced; the page continues to source prompts from useGetAllPrompts / actor.getAllPrompts."
+        "Prompt Library page shows an increased prompt count matching the backend getAllPrompts response for the current user.",
+        "The 30 new prompts can be found via existing search/category filters and open correctly in the prompt details view using existing routes.",
+        "No new UI controls are introduced specifically to expose these prompts (visibility is achieved via the existing listing APIs)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Harden useGetAllPrompts to always source data from actor.getAllPrompts (no mock fallback), and gracefully handle backend errors (e.g., try/catch returning an empty list while surfacing console error) so the Prompt Library can reliably display the seeded prompts for anonymous users."
+          "description": "Harden the existing useGetAllPrompts React Query configuration to reliably refetch updated prompt lists (e.g., after canister upgrade / reload) without introducing new UI controls or changing the overall fetch flow (useGetAllPrompts → PromptLibraryPage)."
         },
         {
           "path": "frontend/src/pages/PromptLibraryPage.tsx",
           "operation": "modify",
-          "description": "Ensure Prompt Library continues to use useGetAllPrompts as the single source of truth and validate/normalize any incoming category search param to a known PromptCategory (else default to 'all') so seeded prompt categories map correctly through the existing PromptCard + categoryConfig labeling."
+          "description": "Validate that PromptLibraryPage continues to derive its displayed prompt count and filtered results solely from the existing useGetAllPrompts data and existing filter logic, ensuring newly seeded prompts appear via search/category filters and render through the existing PromptCard navigation to prompt details."
         }
       ]
     }
