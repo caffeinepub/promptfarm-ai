@@ -62,7 +62,7 @@ export default function PromptLibraryPage() {
     <>
       <Seo
         title="Prompt Library"
-        description="Browse our growing collection of professional AI prompts for video generation, photo creation, marketing, and more."
+        description="Browse our extensive collection of professional AI prompts for Video Generation, Photo Generation, CGI Ads, Social Media, and more. High-quality prompts for creators and marketers."
       />
 
       <div className="container py-8 md:py-12">
@@ -70,7 +70,7 @@ export default function PromptLibraryPage() {
           <h1 className="text-3xl md:text-4xl font-bold mb-2">Prompt Library</h1>
           {!isLoading && prompts.length > 0 && (
             <p className="text-lg text-muted-foreground">
-              Discover {prompts.length}+ professional AI prompts
+              Discover {prompts.length}+ professional AI prompts for Video Generation, Photo Generation, CGI Ads, Social Media, and more
             </p>
           )}
           {isLoading && (

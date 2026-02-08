@@ -1,26 +1,20 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Surface newly added backend prompts in the existing Prompt Library UI",
+  "title": "Show newly-added prompts in Prompt Library with correct category filtering",
   "requirements": [
     {
       "id": "REQ-2",
-      "summary": "Ensure the Prompt Library UI reflects newly added prompts via the existing useGetAllPrompts → PromptLibraryPage fetch flow, including accurate total count and category filtering visibility.",
+      "summary": "Ensure the Prompt Library fetch/render pipeline surfaces the 30 newly persisted prompts and that category filtering for Video Generation, Photo Generation, CGI Ads, and Social Media correctly displays them.",
       "acceptanceCriteria": [
-        "Prompt Library page shows an increased total count consistent with the additional prompts (\"Discover {prompts.length}+ professional AI prompts\").",
-        "The newly added prompts render as PromptCard entries in the Prompt Library list when filters allow them.",
-        "Category filtering in the Prompt Library surfaces the newly added prompts under their respective categories."
+        "Prompt Library displays newly added prompts returned by getAllPrompts in the grid.",
+        "Filtering by Video Generation, Photo Generation, CGI Ads, and Social Media shows the correct newly added prompts under each category."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/PromptLibraryPage.tsx",
           "operation": "modify",
-          "description": "Adjust the Prompt Library header count display to avoid briefly showing a misleading \"0+\" before data loads (e.g., render the count only when prompts are fetched), and update the SEO description to remove hardcoded inventory claims so the page remains accurate as the prompt count increases via backend seed/migration."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Confirm the useGetAllPrompts React Query configuration reliably refetches prompt listings on mount/refresh so newly seeded prompts appear without manual admin actions (keep the existing fetch flow; only make stability/refresh adjustments if needed)."
+          "description": "Update Prompt Library page copy/SEO description to explicitly include Video Generation, Photo Generation, CGI Ads, and Social Media so the UI accurately reflects the expanded library while continuing to render results from getAllPrompts and existing category filter logic."
         }
       ]
     }

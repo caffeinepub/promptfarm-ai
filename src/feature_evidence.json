@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-ensure-the-newly-added-prompts-are-visible-in-the-existing-prompt-library-ui-by-relying-on-the-current-fetch-flow-usegetallprompts-promptlibrarypage-without-requiring-manual-admin-creation-steps",
-      "featureTitle": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current fetch flow (useGetAllPrompts → PromptLibraryPage) without requiring manual admin creation steps.",
+      "featureId": "feature-persist-the-30-new-prompts-in-the-canister-so-they-are-returned-by-getallprompts-and-appear-in-the-prompt-library-on-the-frontend-the-addition-must-be-idempotent-re-running-the-addition-logic-must-not-create-duplicates",
+      "featureTitle": "Persist the 30 new prompts in the canister so they are returned by getAllPrompts and appear in the prompt library on the frontend. The addition must be idempotent (re-running the addition logic must not create duplicates).",
       "files": [
         "frontend/src/pages/PromptLibraryPage.tsx"
       ],

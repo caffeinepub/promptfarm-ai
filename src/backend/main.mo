@@ -12,8 +12,6 @@ import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import Migration "migration";
 
-// Persist backend state during upgrades
-
 (with migration = Migration.run)
 actor {
   type PromptCategory = {
@@ -290,4 +288,3 @@ actor {
     newsletterSubscribers.toArray();
   };
 };
-
