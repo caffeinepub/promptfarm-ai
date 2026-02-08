@@ -1,56 +1,72 @@
 {
   "kind": "build_request",
-  "title": "Seed 30 additional prompts and surface them in the Prompt Library",
+  "title": "Add 30 new prompts and surface them in the Prompt Library",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add 30 new high-quality AI prompt records distributed across the existing backend categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in the canister state and returned by the existing prompt listing APIs (e.g., getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
+      "text": "Add 30 new high-quality AI prompt records distributed across the existing backend prompt categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in canister state and returned by the existing prompt listing APIs (getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-6"
         ],
         "quotes": [
           "Add 30 more high-quality AI prompts across all categories. Make them visible in the prompt library."
         ]
       },
       "acceptanceCriteria": [
-        "Exactly 30 additional PromptRecord entries are added to the persisted dataset used by the canister (not just created via admin UI).",
-        "New prompts are spread across all existing categories; no prompt uses a category outside the enum defined in backend/main.mo.",
-        "Each new prompt has non-empty title, description, and fullText, and includes at least 3 tags.",
-        "After deployment/upgrade, getAllPrompts returns the previous prompts plus these 30 new ones (subject to existing premium gating behavior)."
+        "A total of 30 new PromptRecord entries exist in canister state after deployment/upgrade (not requiring manual creation via the Admin UI).",
+        "New prompts are distributed across all existing categories: videoGeneration, photoGeneration, cgiAds, marketing, storytelling, business, socialMedia, design.",
+        "Each new prompt has non-empty title, description, fullText, and at least one tag.",
+        "New prompts have unique IDs and do not overwrite existing prompts; nextPromptId is updated so admin-added prompts continue with the next available ID.",
+        "Calling getAllPrompts returns the newly added prompts (subject to existing premium gating rules).",
+        "Calling getPromptsByCategory for each category returns the newly added prompts for that category (subject to existing premium gating rules)."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current prompt fetch flow (useGetAllPrompts → PromptLibraryPage) without adding new UI controls or requiring manual admin creation steps.",
+      "text": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current fetch flow (useGetAllPrompts → PromptLibraryPage) without requiring manual admin creation steps.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-6"
         ],
         "quotes": [
           "Make them visible in the prompt library."
         ]
       },
       "acceptanceCriteria": [
-        "Prompt Library page shows an increased prompt count matching the backend getAllPrompts response for the current user.",
-        "The 30 new prompts can be found via existing search/category filters and open correctly in the prompt details view using existing routes.",
-        "No new UI controls are introduced specifically to expose these prompts (visibility is achieved via the existing listing APIs)."
+        "Prompt Library page shows an increased total count consistent with the additional prompts (\"Discover {prompts.length}+ professional AI prompts\").",
+        "The newly added prompts render as PromptCard entries in the Prompt Library list when filters allow them.",
+        "Category filtering in the Prompt Library surfaces the newly added prompts under their respective categories."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
-    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything in frontend/src/components/ui (compose instead)."
+    "Backend changes must respect the single-actor architecture (all Motoko logic in backend/main.mo).",
+    "If state must be modified on upgrade to inject the new prompts into existing deployments, use the platform’s conditional migration approach via backend/migration.mo (do not require manual admin actions).",
+    "Do not edit files under frontend/src/components/ui or other frontend immutablePaths listed in SYSTEM_CONTEXT.",
+    "Use English for all user-facing text."
   ],
   "nonGoals": [
-    "Adding new prompt categories beyond the existing enum.",
-    "Implementing new admin tooling/workflows for bulk prompt creation."
+    "Adding new prompt categories beyond the existing set.",
+    "Changing prompt filtering/sorting behavior in the Prompt Library UI.",
+    "Adding new admin workflows or requiring admins to manually add the 30 prompts.",
+    "Changing premium gating rules or access control behavior beyond what is necessary to store and list the new prompts."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

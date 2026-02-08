@@ -26,7 +26,7 @@
   "frontend/src/lib/validation.ts": "Form validation functions for email, name, and message fields with error messages.",
   "frontend/src/lib/download.ts": "Utility functions for downloading prompts as text files, supporting single or bulk downloads.",
   "frontend/src/pages/HomePage.tsx": "Homepage with hero section featuring headline, CTAs, categories grid, and features showcase with gradient accents.",
-  "frontend/src/pages/PromptLibraryPage.tsx": "Prompt library page with search/filter controls, category validation from URL params synced via useEffect, and responsive grid displaying prompts from backend with debounced search.",
+  "frontend/src/pages/PromptLibraryPage.tsx": "Prompt library page with search/filter controls, category validation from URL params synced via useEffect, responsive grid displaying prompts from backend with debounced search, and conditional rendering of the prompt count to prevent flashing \"0+\" during loading.",
   "frontend/src/pages/CategoriesPage.tsx": "Dedicated categories landing page displaying all 10 categories in a grid layout.",
   "frontend/src/pages/PromptDetailsPage.tsx": "Prompt details page showing full prompt information with premium access gating and back navigation.",
   "frontend/src/pages/BlogIndexPage.tsx": "Blog index page listing all blog posts in a card grid with links to individual posts.",

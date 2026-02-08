@@ -7,11 +7,10 @@ import Array "mo:core/Array";
 import Iter "mo:core/Iter";
 import Order "mo:core/Order";
 import Principal "mo:core/Principal";
-
-import Migration "migration";
 import Runtime "mo:core/Runtime";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
+import Migration "migration";
 
 // Persist backend state during upgrades
 
@@ -76,7 +75,7 @@ actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
-  var nextPromptId = 137;
+  var nextPromptId = 168;
   var nextBlogPostId = 1;
 
   // Helper function to check if a user has premium access
@@ -291,3 +290,4 @@ actor {
     newsletterSubscribers.toArray();
   };
 };
+

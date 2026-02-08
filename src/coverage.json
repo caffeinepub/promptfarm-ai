@@ -1,31 +1,33 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T17:13:32.772Z",
+  "generatedAt": "2026-02-07T17:33:52.025Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 2,
-    "implemented": 0,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add 30 new high-quality AI prompt records distributed across the existing backend categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in the canister state and returned by the existing prompt listing APIs (e.g., getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
+        "summary": "Add 30 new high-quality AI prompt records distributed across the existing backend prompt categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in canister state and returned by the existing prompt listing APIs (getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
         "id": "REQ-2",
-        "summary": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current prompt fetch flow (useGetAllPrompts → PromptLibraryPage) without adding new UI controls or requiring manual admin creation steps.",
-        "status": "missing",
+        "summary": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current fetch flow (useGetAllPrompts → PromptLibraryPage) without requiring manual admin creation steps.",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/PromptLibraryPage.tsx"
+          "frontend/src/pages/PromptLibraryPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/src/pages/PromptLibraryPage.tsx"
+        ]
       }
     ]
   },
@@ -34,7 +36,9 @@
     "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
+    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/pages/PromptLibraryPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

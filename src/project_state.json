@@ -1,36 +1,37 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Expand the application's prompt library by adding more high-quality AI prompts across all categories and ensuring they are visible in the prompt library UI.",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "existing_features": [],
+  "existing_features": [
+    {
+      "id": "feature-ensure-the-newly-added-prompts-are-visible-in-the-existing-prompt-library-ui-by-relying-on-the-current-fetch-flow-usegetallprompts-promptlibrarypage-without-requiring-manual-admin-creation-steps",
+      "title": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current fetch flow (useGetAllPrompts → PromptLibraryPage) without requiring manual admin creation steps.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    }
+  ],
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add 30 more high-quality AI prompts across all categories and make them visible in the prompt library.",
+      "summary": "Add 30 more high-quality AI prompts across all categories and make them visible in the prompt library",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Add 30 new high-quality AI prompt records distributed across the existing backend categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in the canister state and returned by the existing prompt listing APIs (e.g., getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
+      "summary": "Add 30 new high-quality AI prompt records distributed across the existing backend prompt categories (#videoGeneration, #photoGeneration, #cgiAds, #marketing, #storytelling, #business, #socialMedia, #design) so they are persisted in canister state and returned by the existing prompt listing APIs (getAllPrompts, getPromptsByCategory). Each new prompt must include: title, description, fullText, tags, and correct values for isPopular/isNew/isPremium.",
       "reqIds": [
         "REQ-1"
       ],
       "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Ensure the newly added prompts are visible in the existing Prompt Library UI by relying on the current prompt fetch flow (useGetAllPrompts → PromptLibraryPage) without adding new UI controls or requiring manual admin creation steps.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "status": "pending"
     }
   ],
-  "projectName": "Seed 30 additional prompts and surface them in the Prompt Library",
+  "projectName": "Add 30 new prompts and surface them in the Prompt Library",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

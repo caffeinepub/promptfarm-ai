@@ -62,15 +62,22 @@ export default function PromptLibraryPage() {
     <>
       <Seo
         title="Prompt Library"
-        description="Browse 1000+ professional AI prompts for video generation, photo creation, marketing, and more."
+        description="Browse our growing collection of professional AI prompts for video generation, photo creation, marketing, and more."
       />
 
       <div className="container py-8 md:py-12">
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-2">Prompt Library</h1>
-          <p className="text-lg text-muted-foreground">
-            Discover {prompts.length}+ professional AI prompts
-          </p>
+          {!isLoading && prompts.length > 0 && (
+            <p className="text-lg text-muted-foreground">
+              Discover {prompts.length}+ professional AI prompts
+            </p>
+          )}
+          {isLoading && (
+            <p className="text-lg text-muted-foreground">
+              Loading prompts...
+            </p>
+          )}
         </div>
 
         <div className="mb-8">
