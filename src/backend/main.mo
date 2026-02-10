@@ -73,7 +73,7 @@ actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
-  var nextPromptId = 168;
+  var nextPromptId = 220;
   var nextBlogPostId = 1;
 
   // Helper function to check if a user has premium access
@@ -144,9 +144,11 @@ actor {
   };
 
   public query ({ caller }) func getPrompt(id : Nat) : async PromptRecord {
+    // Allow guests and above to view prompts (including anonymous)
     switch (prompts.get(id)) {
       case (null) { Runtime.trap("Prompt not found") };
       case (?prompt) {
+        // Premium prompts require premium access (user with membership or admin)
         if (prompt.isPremium and not hasPremiumAccess(caller)) {
           Runtime.trap("Unauthorized: Premium membership required to access this prompt");
         };
@@ -156,6 +158,7 @@ actor {
   };
 
   public query ({ caller }) func getAllPrompts() : async [PromptRecord] {
+    // Allow guests and above to view prompts (including anonymous)
     let allPrompts = prompts.values().toArray().sort();
     filterPromptsByAccess(caller, allPrompts);
   };
@@ -215,6 +218,7 @@ actor {
   };
 
   public query ({ caller }) func getPromptsByCategory(category : PromptCategory) : async [PromptRecord] {
+    // Allow guests and above to view prompts (including anonymous)
     let categoryPrompts = prompts.values().toArray().filter(
       func(prompt) {
         prompt.category == category;
@@ -245,6 +249,7 @@ actor {
   };
 
   public query ({ caller }) func getBlogPost(id : Nat) : async BlogPost {
+    // Public access - no authentication required
     switch (blogPosts.get(id)) {
       case (null) { Runtime.trap("Blog post not found") };
       case (?post) { post };
@@ -252,11 +257,13 @@ actor {
   };
 
   public query ({ caller }) func getAllBlogPosts() : async [BlogPost] {
+    // Public access - no authentication required
     blogPosts.values().toArray();
   };
 
   // Contact and Newsletter (Public Access)
   public shared ({ caller }) func submitContactForm(name : Text, email : Text, message : Text) : async () {
+    // Public access - no authentication required
     let timestamp = Time.now();
 
     let submission : ContactSubmission = {
@@ -270,6 +277,7 @@ actor {
   };
 
   public shared ({ caller }) func subscribeToNewsletter(email : Text) : async () {
+    // Public access - no authentication required
     newsletterSubscribers.add(email);
   };
 

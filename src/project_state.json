@@ -1,37 +1,36 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Build a prompt library app and populate it with high-quality AI prompts organized by category (video, photo, ads, social media).",
+  "summary": "Prompt library enhancement: add 20 high-quality AI prompts across video, photo, ads, and social media categories; persist them and display them in the prompt library.",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "existing_features": [
-    {
-      "id": "feature-persist-the-30-new-prompts-in-the-canister-so-they-are-returned-by-getallprompts-and-appear-in-the-prompt-library-on-the-frontend-the-addition-must-be-idempotent-re-running-the-addition-logic-must-not-create-duplicates",
-      "title": "Persist the 30 new prompts in the canister so they are returned by getAllPrompts and appear in the prompt library on the frontend. The addition must be idempotent (re-running the addition logic must not create duplicates).",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    }
-  ],
+  "existing_features": [],
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add 30 high-quality AI prompts across video, photo, ads, and social media; persist them and display them in the prompt library.",
+      "summary": "Add 20 high-quality AI prompts across video, photo, ads, and social media categories; save and display them in the prompt library",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Create 30 new high-quality AI prompt records in English across the following backend prompt categories: videoGeneration (video), photoGeneration (photo), cgiAds (ads), and socialMedia (social media). Each prompt must include: title, description, fullText, tags[], and boolean flags isPopular, isNew, isPremium.",
+      "summary": "Create 20 new high-quality AI prompt records (English) distributed across the existing backend categories: videoGeneration, photoGeneration, cgiAds, and socialMedia. Each prompt record must include: title, description, fullText, tags[], and boolean flags isPopular, isNew, isPremium.",
       "reqIds": [
         "REQ-1"
       ],
       "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Persist the 20 new prompts in the canister so they are returned by getAllPrompts and therefore appear in the Prompt Library. The seeding must be idempotent (running it multiple times must not create duplicates) and must not break existing prompt IDs or existing stored prompts.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
     }
   ],
-  "projectName": "Add 30 new prompts (Video, Photo, Ads, Social Media) and show them in the Prompt Library",
+  "projectName": "Seed and display 20 new AI prompts in the Prompt Library (Video, Photo, Ads, Social Media)",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

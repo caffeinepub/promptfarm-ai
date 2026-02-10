@@ -1,30 +1,31 @@
 {
   "kind": "build_request",
-  "title": "Add 30 new prompts (Video, Photo, Ads, Social Media) and show them in the Prompt Library",
+  "title": "Seed and display 20 new AI prompts in the Prompt Library (Video, Photo, Ads, Social Media)",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Create 30 new high-quality AI prompt records in English across the following backend prompt categories: videoGeneration (video), photoGeneration (photo), cgiAds (ads), and socialMedia (social media). Each prompt must include: title, description, fullText, tags[], and boolean flags isPopular, isNew, isPremium.",
+      "text": "Create 20 new high-quality AI prompt records (English) distributed across the existing backend categories: videoGeneration, photoGeneration, cgiAds, and socialMedia. Each prompt record must include: title, description, fullText, tags[], and boolean flags isPopular, isNew, isPremium.",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Add 30 high-quality AI prompts across video, photo, ads, and social media categories."
+          "Add the new 20 high-quality AI prompts across video, photo, ads, and social media categories."
         ]
       },
       "acceptanceCriteria": [
-        "There are exactly 30 new PromptRecord entries authored in English and assigned to these categories only: videoGeneration, photoGeneration, cgiAds, socialMedia.",
-        "Each new prompt has non-empty title, description, and fullText; tags is a non-empty array of useful keywords.",
-        "All 30 prompts have unique titles (no duplicates)."
+        "Exactly 20 new PromptRecord entries are defined for seeding.",
+        "All 20 prompts are written in English.",
+        "Each seeded prompt has non-empty title, description, and fullText; tags is a non-empty array; isPopular/isNew/isPremium are explicitly set.",
+        "Each of the four requested categories has at least one seeded prompt (videoGeneration, photoGeneration, cgiAds, socialMedia)."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Persist the 30 new prompts in the canister so they are returned by getAllPrompts and appear in the prompt library on the frontend. The addition must be idempotent (re-running the addition logic must not create duplicates).",
-      "target": "both",
+      "text": "Persist the 20 new prompts in the canister so they are returned by getAllPrompts and therefore appear in the Prompt Library. The seeding must be idempotent (running it multiple times must not create duplicates) and must not break existing prompt IDs or existing stored prompts.",
+      "target": "backend",
       "source": {
         "messageIds": [
           "msg-1"
@@ -34,33 +35,26 @@
         ]
       },
       "acceptanceCriteria": [
-        "After deployment, getAllPrompts returns the previous prompts plus 30 additional prompts (no duplicates).",
-        "The Prompt Library page shows the increased prompt count and renders the newly added prompts in the grid.",
-        "Filtering by category (Video Generation, Photo Generation, CGI Ads, Social Media) shows the newly added prompts in the correct category."
+        "After seeding, calling getAllPrompts returns the 20 new prompts in addition to any existing prompts.",
+        "Re-running the seeding logic does not create duplicate prompts.",
+        "Seeded prompts use valid PromptCategory variants already supported by the backend (videoGeneration, photoGeneration, cgiAds, socialMedia).",
+        "The frontend Prompt Library page lists the newly seeded prompts when the prompts query is refreshed/reloaded (no manual backend calls required by the user beyond normal app usage)."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor in backend/main.mo.",
-    "Do not modify files under frontend/src/components/ui or any frontend immutablePaths listed in SYSTEM_CONTEXT."
+    "Use English for any user-facing text.",
+    "Backend must remain a single Motoko actor in backend/main.mo; do not introduce additional backend services.",
+    "Do not modify any paths listed as immutable in SYSTEM_CONTEXT (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui).",
+    "Do not change the set of PromptCategory variants; use existing categories only (videoGeneration, photoGeneration, cgiAds, socialMedia)."
   ],
   "nonGoals": [
-    "Do not add new authentication providers (Internet Identity remains the only auth).",
-    "Do not redesign the prompt library UI beyond what is required to make the new prompts visible.",
-    "Do not add new prompt categories beyond videoGeneration, photoGeneration, cgiAds, and socialMedia."
+    "Do not add new prompt categories beyond videoGeneration, photoGeneration, cgiAds, and socialMedia.",
+    "Do not implement third-party auth or external databases.",
+    "Do not redesign the Prompt Library filtering UI beyond what is necessary to ensure seeded prompts are visible via existing filters."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

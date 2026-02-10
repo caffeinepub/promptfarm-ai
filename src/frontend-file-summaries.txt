@@ -22,7 +22,7 @@
   "frontend/src/hooks/useDebouncedValue.ts": "Custom hook that debounces a value to optimize search input performance.",
   "frontend/src/lib/promptRouting.ts": "Utility functions for building SEO-friendly prompt URLs with slugs and parsing prompt IDs from route params.",
   "frontend/src/lib/blogRouting.ts": "Utility functions for building SEO-friendly blog post URLs with slugs and parsing post IDs from route params.",
-  "frontend/src/lib/promptFilter.ts": "Client-side filtering logic for prompts supporting search text, category, tier, and sort facets.",
+  "frontend/src/lib/promptFilter.ts": "Client-side filtering logic for prompts supporting search text (now including fullText field), category, tier, and sort facets for improved discoverability.",
   "frontend/src/lib/validation.ts": "Form validation functions for email, name, and message fields with error messages.",
   "frontend/src/lib/download.ts": "Utility functions for downloading prompts as text files, supporting single or bulk downloads.",
   "frontend/src/pages/HomePage.tsx": "Homepage with hero section featuring headline, CTAs, categories grid, and features showcase with gradient accents.",

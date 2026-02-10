@@ -1,8 +1,10 @@
 import Map "mo:core/Map";
+import Nat "mo:core/Nat";
 import List "mo:core/List";
+import Principal "mo:core/Principal";
 
 module {
-  public type PromptCategory = {
+  type PromptCategory = {
     #videoGeneration;
     #photoGeneration;
     #cgiAds;
@@ -13,7 +15,7 @@ module {
     #design;
   };
 
-  public type PromptRecord = {
+  type PromptRecord = {
     id : Nat;
     title : Text;
     description : Text;
@@ -25,355 +27,336 @@ module {
     isPremium : Bool;
   };
 
-  public type OldActor = {
-    prompts : Map.Map<Nat, PromptRecord>;
+  type BlogPost = {
+    id : Nat;
+    title : Text;
+    content : Text;
+    author : Text;
+    timestamp : Int;
   };
 
-  public type NewActor = {
-    prompts : Map.Map<Nat, PromptRecord>;
+  type ContactSubmission = {
+    name : Text;
+    email : Text;
+    message : Text;
+    timestamp : Int;
   };
+
+  type UserProfile = {
+    name : Text;
+    hasPremiumMembership : Bool;
+  };
+
+  type OldActor = {
+    prompts : Map.Map<Nat, PromptRecord>;
+    blogPosts : Map.Map<Nat, BlogPost>;
+    favorites : Map.Map<Principal, List.List<Nat>>;
+    newsletterSubscribers : List.List<Text>;
+    contactSubmissions : List.List<ContactSubmission>;
+    userProfiles : Map.Map<Principal, UserProfile>;
+    nextPromptId : Nat;
+    nextBlogPostId : Nat;
+  };
+
+  type NewActor = OldActor;
 
   public func run(old : OldActor) : NewActor {
-    let initialPrompts = getInitialPrompts();
-    let promptsCopy = old.prompts.clone();
-    for (prompt in initialPrompts.values()) {
-      promptsCopy.add(prompt.id, prompt);
-    };
-    { prompts = promptsCopy };
-  };
-
-  func getInitialPrompts() : [PromptRecord] {
-    [
-      {
-        id = 1;
-        title = "Create a Viral Social Media Video";
-        description = "Generate a short video concept designed to go viral on social platforms.";
-        category = #videoGeneration;
-        fullText = "Create a 30-second video script and storyboard that leverages trending topics, humor, and captivating visuals to maximize shareability on platforms like TikTok and Instagram.";
-        tags = ["viral", "social media", "video"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 2;
-        title = "Stunning Product Photo Shoot";
-        description = "Generate a set of high-quality product photos for ecommerce.";
-        category = #photoGeneration;
-        fullText = "Create a photo shoot concept that highlights the features of a new product, using creative lighting, backgrounds, and props to make it stand out in online stores.";
-        tags = ["product", "photo", "ecommerce"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 3;
-        title = "Animated CGI Advertisement";
-        description = "Develop a fully animated CGI ad for a new brand.";
-        category = #cgiAds;
-        fullText = "Create a 60-second CGI advertisement that tells the story of a new brand, using stunning visuals, 3D animation, and engaging narratives to capture the audience's attention.";
-        tags = ["CGI", "advertisement", "animation"];
-        isPopular = true;
-        isNew = true;
-        isPremium = true;
-      },
-      {
-        id = 4;
-        title = "Engaging Instagram Story Series";
-        description = "Create a series of Instagram stories for brand engagement.";
-        category = #socialMedia;
-        fullText = "Develop a 5-part Instagram story series that uses interactive elements, polls, and captivating visuals to increase audience engagement and brand awareness.";
-        tags = ["Instagram", "story", "engagement"];
-        isPopular = true;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 5;
-        title = "YouTube Explainer Video";
-        description = "Script and storyboard for a YouTube explainer video.";
-        category = #videoGeneration;
-        fullText = "Create a 2-minute script and storyboard for a YouTube explainer video that simplifies a complex topic using animations, voiceovers, and clear visuals.";
-        tags = ["YouTube", "explainer", "video"];
-        isPopular = true;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 6;
-        title = "Lifestyle Product Photography";
-        description = "Generate lifestyle product photos in natural settings.";
-        category = #photoGeneration;
-        fullText = "Create photo concepts that showcase products being used in real-life scenarios, emphasizing authenticity, emotions, and relatable environments.";
-        tags = ["lifestyle", "product", "photography"];
-        isPopular = true;
-        isNew = true;
-        isPremium = true;
-      },
-      {
-        id = 7;
-        title = "3D Animated Logo Reveal";
-        description = "Design a 3D animated logo reveal for branding.";
-        category = #cgiAds;
-        fullText = "Develop a short 3D animation that introduces a company's logo with dynamic movements, particle effects, and sound design to enhance brand recognition.";
-        tags = ["3D", "animation", "logo"];
-        isPopular = false;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 8;
-        title = "TikTok Dance Challenge Video";
-        description = "Create a dance challenge video for TikTok.";
-        category = #videoGeneration;
-        fullText = "Generate a 15-second video featuring an original dance routine, catchy music, and clear instructions to encourage user participation in a viral challenge.";
-        tags = ["TikTok", "dance", "challenge"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 9;
-        title = "Influencer Lifestyle Photo Series";
-        description = "Develop a photo series for influencer marketing.";
-        category = #photoGeneration;
-        fullText = "Create a cohesive set of photos that showcase an influencer using specific products in aspirational settings, emphasizing lifestyle and brand partnerships.";
-        tags = ["influencer", "lifestyle", "photo"];
-        isPopular = false;
-        isNew = false;
-        isPremium = true;
-      },
-      {
-        id = 10;
-        title = "Facebook Video Ad Campaign";
-        description = "Design a Facebook video ad series.";
-        category = #cgiAds;
-        fullText = "Develop a series of short CGI-enhanced video ads tailored for Facebook audiences, focusing on product benefits, calls-to-action, and brand consistency.";
-        tags = ["Facebook", "video ad", "CGI"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 11;
-        title = "Stop Motion Animation";
-        description = "Create a stop motion animation video concept.";
-        category = #videoGeneration;
-        fullText = "Generate a storyboard and script for a stop motion video, including scene transitions, materials needed, and creative movement ideas.";
-        tags = ["stop motion", "animation", "video"];
-        isPopular = false;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 12;
-        title = "Food Photography Series";
-        description = "Develop a photo series for food advertising.";
-        category = #photoGeneration;
-        fullText = "Create concepts for capturing mouth-watering food photos, focusing on lighting, composition, and creative plating techniques.";
-        tags = ["food", "photography", "advertising"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 13;
-        title = "Virtual Reality Ad Experience";
-        description = "Design an interactive VR ad campaign.";
-        category = #cgiAds;
-        fullText = "Create concepts for a virtual reality advertisement that allows users to interact with products in a simulated 3D environment.";
-        tags = ["VR", "virtual reality", "advertising"];
-        isPopular = false;
-        isNew = true;
-        isPremium = true;
-      },
-      {
-        id = 14;
-        title = "Pinterest Pin Design";
-        description = "Generate visually appealing pins for Pinterest marketing.";
-        category = #photoGeneration;
-        fullText = "Create templates and design ideas for Pinterest pins that drive traffic, focusing on vertical layouts, branded elements, and lifestyle photography.";
-        tags = ["Pinterest", "design", "photography"];
-        isPopular = true;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 15;
-        title = "Instagram Reel Series";
-        description = "Develop a series of Instagram Reels for brand promotion.";
-        category = #videoGeneration;
-        fullText = "Create concepts for short, engaging video clips that highlight products, tutorials, or lifestyle moments in a vertical format.";
-        tags = ["Instagram", "reels", "video"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 16;
-        title = "Interactive CGI Web Banner";
-        description = "Design an interactive web banner with CGI elements.";
-        category = #cgiAds;
-        fullText = "Create concepts for dynamic web banners that use 3D animation, interactive features, and responsive design to increase engagement.";
-        tags = ["web banner", "CGI", "interactive"];
-        isPopular = false;
-        isNew = false;
-        isPremium = true;
-      },
-      {
-        id = 17;
-        title = "Snapchat Filter Video";
-        description = "Create a promotional video using Snapchat filters.";
-        category = #videoGeneration;
-        fullText = "Develop a video concept that showcases a brand's products or services using custom Snapchat filters and augmented reality effects.";
-        tags = ["Snapchat", "video", "filters"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 18;
-        title = "Celebrity Endorsement Photo Series";
-        description = "Develop photo concepts for celebrity endorsement campaigns.";
-        category = #photoGeneration;
-        fullText = "Create ideas for photo shoots featuring celebrities using your products, focusing on authenticity, relatability, and social media appeal.";
-        tags = ["celebrity", "endorsement", "photography"];
-        isPopular = false;
-        isNew = false;
-        isPremium = true;
-      },
-      {
-        id = 19;
-        title = "Twitter Video Ad";
-        description = "Design a short video ad optimized for Twitter.";
-        category = #cgiAds;
-        fullText = "Develop a 15-second video ad concept that captures attention quickly, uses branding elements, and encourages sharing on Twitter.";
-        tags = ["Twitter", "video ad", "CGI"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 20;
-        title = "LinkedIn Professional Video";
-        description = "Create a professional video for LinkedIn marketing.";
-        category = #videoGeneration;
-        fullText = "Generate a video script and storyboard for a corporate audience, focusing on industry insights, thought leadership, and professional branding.";
-        tags = ["LinkedIn", "professional", "video"];
-        isPopular = false;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 21;
-        title = "Product Launch Photography";
-        description = "Develop a photo series for product launches.";
-        category = #photoGeneration;
-        fullText = "Create concepts for capturing product launch events, focusing on packaging, unboxing, and lifestyle shots that build anticipation.";
-        tags = ["product launch", "photography", "lifestyle"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 22;
-        title = "Animated GIF Ad";
-        description = "Design a series of animated GIF ads for digital marketing.";
-        category = #cgiAds;
-        fullText = "Create concepts for looping animated GIFs that highlight product features, use vibrant colors, and drive social media engagement.";
-        tags = ["animated GIF", "digital ads", "CGI"];
-        isPopular = false;
-        isNew = true;
-        isPremium = true;
-      },
-      {
-        id = 23;
-        title = "Facebook Live Video";
-        description = "Create a concept for an engaging Facebook Live video.";
-        category = #videoGeneration;
-        fullText = "Develop ideas for interactive live video sessions, including Q&A, behind-the-scenes, and product demonstrations to boost engagement.";
-        tags = ["Facebook Live", "video", "engagement"];
-        isPopular = true;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 24;
-        title = "Fashion Lookbook Photography";
-        description = "Create a digital lookbook for fashion brands.";
-        category = #photoGeneration;
-        fullText = "Develop photo concepts for showcasing clothing collections, focusing on trends, seasonality, and model poses.";
-        tags = ["fashion", "lookbook", "photography"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 25;
-        title = "Virtual Product Launch Event";
-        description = "Design a virtual product launch event with CGI elements.";
-        category = #cgiAds;
-        fullText = "Create concepts for immersive online product launches that use virtual stages, 3D product visualizations, and live streaming components.";
-        tags = ["virtual event", "product launch", "CGI"];
-        isPopular = false;
-        isNew = false;
-        isPremium = true;
-      },
-      {
-        id = 26;
-        title = "Audio-Visual Podcast Intro";
-        description = "Design an audio-visual intro for podcasts.";
-        category = #videoGeneration;
-        fullText = "Create a short video and audio sequence for podcast intros, including animation, sound effects, and branding elements.";
-        tags = ["podcast", "intro", "audio-visual"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 27;
-        title = "Pet Photography Series";
-        description = "Develop a photo series for pet products and services.";
-        category = #photoGeneration;
-        fullText = "Create concepts for capturing pets in dynamic poses, using props and backgrounds that highlight their personalities.";
-        tags = ["pet", "photography", "lifestyle"];
-        isPopular = false;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 28;
-        title = "360-Degree Product Videos";
-        description = "Create 360-degree video showcases for products.";
-        category = #videoGeneration;
-        fullText = "Develop video concepts that allow viewers to see products from all angles, using dynamic camera movements, lighting, and close-ups.";
-        tags = ["360-degree", "product", "video"];
-        isPopular = true;
-        isNew = true;
-        isPremium = false;
-      },
-      {
-        id = 29;
-        title = "Fitness Influencer Photo Series";
-        description = "Develop a photo series for fitness influencer campaigns.";
-        category = #photoGeneration;
-        fullText = "Create ideas for capturing fitness routines, product use, and healthy lifestyle shots to promote wellness brands.";
-        tags = ["fitness", "influencer", "photography"];
-        isPopular = true;
-        isNew = false;
-        isPremium = false;
-      },
-      {
-        id = 30;
-        title = "Augmented Reality Ad Campaign";
-        description = "Design an AR ad campaign with interactive features.";
-        category = #cgiAds;
-        fullText = "Create concepts for augmented reality advertising that allows users to interact with products and virtual experiences using mobile devices.";
-        tags = ["augmented reality", "advertising", "AR"];
-        isPopular = true;
-        isNew = true;
-        isPremium = true;
-      },
+    let seedPrompts : [(Nat, PromptRecord)] = [
+      // Video Generation Prompts
+      (
+        200,
+        {
+          id = 200;
+          title = "Cinematic Drone Fly-through";
+          description = "Prompt for AI-generated drone-style cinematic video.";
+          category = #videoGeneration;
+          fullText = "Create a highly detailed 4K video of a drone flying through a futuristic cityscape at sunset, using smooth cinematic camera movements.";
+          tags = ["drone", "cinematic", "futuristic"];
+          isPopular = true;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        201,
+        {
+          id = 201;
+          title = "AI-powered Nature Documentary";
+          description = "Prompt for generating documentary-style nature video.";
+          category = #videoGeneration;
+          fullText = "Generate a high-definition documentary-style video showcasing the migration patterns of wildebeest across the Serengeti. Include aerial shots and close-up animal behaviors.";
+          tags = ["nature", "documentary", "wildlife"];
+          isPopular = true;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        202,
+        {
+          id = 202;
+          title = "Virtual Product Unboxing";
+          description = "Prompt for 3D animated product unboxing video.";
+          category = #videoGeneration;
+          fullText = "Create a realistic 3D unboxing video of a new tech gadget, featuring slow-motion effects and detailed product close-ups.";
+          tags = ["product", "unboxing", "3D"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        203,
+        {
+          id = 203;
+          title = "Time-lapse City Transformation";
+          description = "Prompt for time-lapse AI-generated city footage.";
+          category = #videoGeneration;
+          fullText = "Generate a time-lapse sequence showing the transformation of a historic city center from day to night, including lighting changes and traffic patterns.";
+          tags = ["city", "time-lapse", "transformation"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      // Photo Generation Prompts
+      (
+        204,
+        {
+          id = 204;
+          title = "Hyperrealistic Portraits";
+          description = "Prompt for ultra-detailed AI-generated portraits.";
+          category = #photoGeneration;
+          fullText = "Create a series of hyperrealistic portraits capturing diverse facial expressions and lighting conditions, suitable for fashion photography.";
+          tags = ["portrait", "photography", "hyperrealistic"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        205,
+        {
+          id = 205;
+          title = "Surreal Landscape Photography";
+          description = "Prompt for AI-generated surreal landscapes.";
+          category = #photoGeneration;
+          fullText = "Generate high-resolution surrealistic landscape photos combining elements of different seasons and weather patterns in a single image.";
+          tags = ["landscape", "surreal", "photography"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        206,
+        {
+          id = 206;
+          title = "Vintage Film Camera Aesthetics";
+          description = "Prompt for retro-style AI photos.";
+          category = #photoGeneration;
+          fullText = "Create photos with vintage film camera aesthetics, featuring grainy textures, light leaks, and muted color palettes reminiscent of 1980s photography.";
+          tags = ["vintage", "film", "retro"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        207,
+        {
+          id = 207;
+          title = "AI-Enhanced Food Photography";
+          description = "Prompt for high-quality food imagery.";
+          category = #photoGeneration;
+          fullText = "Generate mouth-watering food photos with enhanced textures, vibrant colors, and realistic steam or smoke effects for hot dishes.";
+          tags = ["food", "photography", "enhanced"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      // CGI Ad Prompts
+      (
+        208,
+        {
+          id = 208;
+          title = "Dynamic Product Animation";
+          description = "Prompt for CGI product commercials.";
+          category = #cgiAds;
+          fullText = "Create a dynamic 3D animation showcasing a new product's features, including exploded views and interactive elements for an advertising campaign.";
+          tags = ["product", "animation", "commercial"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        209,
+        {
+          id = 209;
+          title = "Virtual Storefront Experience";
+          description = "Prompt for interactive digital storefronts.";
+          category = #cgiAds;
+          fullText = "Generate a virtual 3D storefront experience allowing users to explore and interact with products in a digital retail environment.";
+          tags = ["virtual", "storefront", "3D"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        210,
+        {
+          id = 210;
+          title = "Augmented Reality Product Demos";
+          description = "Prompt for AR ad campaigns.";
+          category = #cgiAds;
+          fullText = "Create augmented reality product demo assets for use in interactive ad campaigns, featuring 360-degree product views and customization options.";
+          tags = ["AR", "product", "demo"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        211,
+        {
+          id = 211;
+          title = "Animated Brand Mascot Creator";
+          description = "Prompt for custom mascot animations.";
+          category = #cgiAds;
+          fullText = "Generate animated brand mascots with diverse expressions and actions, suitable for use in digital advertisements and social media campaigns.";
+          tags = ["mascot", "animation", "brand"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      // Social Media Content Prompts
+      (
+        212,
+        {
+          id = 212;
+          title = "Viral Video Challenge Templates";
+          description = "Prompt for creating viral video frameworks.";
+          category = #socialMedia;
+          fullText = "Create a series of templates for social media video challenges, incorporating popular music, effects, and interactive elements to boost engagement.";
+          tags = ["viral", "template", "challenge"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        213,
+        {
+          id = 213;
+          title = "Influencer Storytelling Toolkit";
+          description = "Prompt for influencer content creation.";
+          category = #socialMedia;
+          fullText = "Generate a toolkit for influencers, including customizable story formats, branded overlays, and interactive polls for social media platforms.";
+          tags = ["influencer", "storytelling", "toolkit"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        214,
+        {
+          id = 214;
+          title = "360° Social Media Posts";
+          description = "Prompt for immersive post creation.";
+          category = #socialMedia;
+          fullText = "Create 360-degree immersive social media posts featuring interactive hotspots, panoramic views, and integrated calls-to-action for brands.";
+          tags = ["360", "immersive", "social"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        215,
+        {
+          id = 215;
+          title = "AI-Generated Hashtag Analysis";
+          description = "Prompt for optimizing hashtag strategies.";
+          category = #socialMedia;
+          fullText = "Develop an AI tool that analyzes trending hashtags and suggests optimized combinations for maximum social media reach and engagement.";
+          tags = ["hashtag", "analysis", "optimization"];
+          isPopular = false;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        216,
+        {
+          id = 216;
+          title = "Sponsorship Proposal Generator";
+          description = "Prompt for influencer-brand collaborations.";
+          category = #socialMedia;
+          fullText = "Generate detailed sponsorship proposal templates for influencers to pitch collaboration ideas to brands, including analytics and engagement forecasts.";
+          tags = ["sponsorship", "proposal", "influencer"];
+          isPopular = true;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        217,
+        {
+          id = 217;
+          title = "Interactive Ad Campaign Creator";
+          description = "Prompt for engaging ad content.";
+          category = #socialMedia;
+          fullText = "Create an interactive ad campaign template featuring gamified elements, user challenges, and shareable rewards to boost audience participation.";
+          tags = ["interactive", "ad", "campaign"];
+          isPopular = false;
+          isNew = false;
+          isPremium = true;
+        },
+      ),
+      (
+        218,
+        {
+          id = 218;
+          title = "Eco-friendly Product Showcase";
+          description = "Prompt for sustainable product campaigns.";
+          category = #cgiAds;
+          fullText = "Generate visually engaging CGI ads highlighting sustainable and eco-friendly products, with emphasis on environmental impact and green messaging.";
+          tags = ["eco-friendly", "sustainable", "product"];
+          isPopular = true;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
+      (
+        219,
+        {
+          id = 219;
+          title = "Luxury Brand Experience";
+          description = "Prompt for high-end brand marketing.";
+          category = #cgiAds;
+          fullText = "Create digital assets and CGI ads for luxury brands, focusing on elegant design, sophisticated animations, and immersive brand experiences.";
+          tags = ["luxury", "brand", "experience"];
+          isPopular = true;
+          isNew = true;
+          isPremium = true;
+        },
+      ),
     ];
+
+    let existingPrompts = old.prompts;
+    let newPromptMap = existingPrompts.clone();
+
+    for ((id, prompt) in seedPrompts.values()) {
+      if (not existingPrompts.containsKey(id)) {
+        newPromptMap.add(id, prompt);
+      };
+    };
+
+    { old with prompts = newPromptMap };
   };
 };

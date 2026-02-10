@@ -1,22 +1,6 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Show newly-added prompts in Prompt Library with correct category filtering",
-  "requirements": [
-    {
-      "id": "REQ-2",
-      "summary": "Ensure the Prompt Library fetch/render pipeline surfaces the 30 newly persisted prompts and that category filtering for Video Generation, Photo Generation, CGI Ads, and Social Media correctly displays them.",
-      "acceptanceCriteria": [
-        "Prompt Library displays newly added prompts returned by getAllPrompts in the grid.",
-        "Filtering by Video Generation, Photo Generation, CGI Ads, and Social Media shows the correct newly added prompts under each category."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/PromptLibraryPage.tsx",
-          "operation": "modify",
-          "description": "Update Prompt Library page copy/SEO description to explicitly include Video Generation, Photo Generation, CGI Ads, and Social Media so the UI accurately reflects the expanded library while continuing to render results from getAllPrompts and existing category filter logic."
-        }
-      ]
-    }
-  ]
+  "title": "Frontend plan: no UI changes needed for backend prompt seeding",
+  "requirements": []
 }

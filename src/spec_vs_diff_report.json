@@ -1,68 +1,48 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T04:16:57.359Z",
-  "summary": "The diff adds a migration module with new initial prompt records and updates the backend and Prompt Library page, but it is not verifiably meeting the “exactly 30 prompts” and “only 4 categories” requirements; it also introduces additional prompt categories and other unrequested frontend/backend behaviors.",
+  "generatedAt": "2026-02-08T04:45:56.602Z",
+  "summary": "The diff adds a new backend migration module and wires it into backend/main.mo, including a list of seeded PromptRecord entries starting at ID 200. However, due to truncation and lack of visible getAllPrompts/seed-idempotency logic, the core requirements (exactly 20 prompts, category distribution, and idempotent persistence/visibility via getAllPrompts) cannot be fully verified from the provided diff summary. The diff also appears to add unrelated premium-access filtering and user-profile logic not requested.",
   "missing_requirements": [
     {
       "id": "REQ-1",
-      "requirement": "Create exactly 30 new PromptRecord entries in English assigned only to categories videoGeneration, photoGeneration, cgiAds, and socialMedia, with non-empty title/description/fullText, non-empty tags, and unique titles.",
-      "reason": "The migration prompt list is truncated, so the diff does not provide sufficient evidence that there are exactly 30 new records, that all titles are unique, and that all records are restricted to only the four allowed categories. Additionally, the backend PromptCategory includes extra categories beyond the four allowed.",
+      "requirement": "Define exactly 20 new high-quality English PromptRecord seed entries across videoGeneration, photoGeneration, cgiAds, and socialMedia; each with non-empty title/description/fullText, non-empty tags[], and explicit isPopular/isNew/isPremium.",
+      "reason": "backend/migration.mo shows only a partial (truncated) seed list; the diff does not provide evidence that there are exactly 20 prompts, that all are in English, that all required fields are non-empty for all 20, or that all four required categories are represented at least once.",
       "evidence": [
-        "backend/migration.mo (truncated; shows only ids 1-6 then truncation; category type includes #marketing/#storytelling/#business/#design)",
-        "backend/main.mo (PromptCategory includes #marketing/#storytelling/#business/#design)"
+        "backend/migration.mo (truncated seedPrompts list ends mid-record)"
       ]
     },
     {
       "id": "REQ-2",
-      "requirement": "Persist the 30 new prompts so getAllPrompts returns previous prompts plus 30 additional prompts with idempotent addition (no duplicates) and they appear correctly in the frontend Prompt Library including category filtering.",
-      "reason": "The diff does not show getAllPrompts implementation or any explicit idempotent “add only if missing” logic for adding 30 new prompts. The migration adds prompts by fixed ids (starting at 1) which may overwrite existing prompts rather than adding 30 additional prompts, and the evidence is insufficient that the frontend category filtering is limited to the four required categories.",
+      "requirement": "Persist the 20 seeded prompts so getAllPrompts returns them; seeding must be idempotent (no duplicates on rerun) and must not break existing prompt IDs or stored prompts.",
+      "reason": "Although backend/main.mo wires in a migration runner, the diff summary does not show getAllPrompts behavior, how the seeded prompts are merged into existing state, or any explicit idempotency/duplicate-prevention logic. It also does not show safeguards for existing prompt IDs/stored prompts.",
       "evidence": [
-        "backend/migration.mo (run() clones old.prompts then adds promptsCopy.add(prompt.id, prompt) using hard-coded ids like 1,2,3,4,5,6...)",
-        "backend/main.mo (var nextPromptId = 168 suggests existing prompt ids; potential collision with migration ids 1..)",
-        "frontend/src/pages/PromptLibraryPage.tsx (VALID_CATEGORIES includes more than the four required categories)"
+        "backend/main.mo (truncated; only shows '(with migration = Migration.run)' and prompt state vars)",
+        "backend/migration.mo (truncated; shows seedPrompts but not full run logic beyond listing)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Introduced additional prompt categories beyond the requested four (marketing, storytelling, business, design) in both backend and frontend category validation.",
-      "reason": "BuildRequest explicitly disallows adding new prompt categories beyond videoGeneration, photoGeneration, cgiAds, and socialMedia.",
+      "description": "Premium access gating/filtering logic (hasPremiumAccess and filterPromptsByAccess) and related user profile access-control behaviors.",
+      "reason": "The BuildRequest focuses only on seeding and displaying 20 prompts via existing categories/filters; it does not request introducing premium membership gating or prompt filtering by caller access.",
       "evidence": [
-        "backend/migration.mo (PromptCategory includes #marketing, #storytelling, #business, #design)",
-        "backend/main.mo (PromptCategory includes #marketing, #storytelling, #business, #design)",
-        "frontend/src/pages/PromptLibraryPage.tsx (VALID_CATEGORIES includes marketing, storytelling, business, design)"
+        "backend/main.mo (shows hasPremiumAccess, filterPromptsByAccess, UserProfile management functions)"
       ]
     },
     {
-      "description": "Added a migration module/mechanism (backend/migration.mo) and wired it into backend/main.mo.",
-      "reason": "The BuildRequest asks to add and persist prompts idempotently, but does not request introducing a separate migration file/mechanism; this is additional implementation scope not explicitly requested (and may conflict with the constraint expectations depending on interpretation).",
+      "description": "Introduction of a separate migration module/file for backend state upgrades.",
+      "reason": "The BuildRequest did not request adding a migration system; it only required idempotent seeding/persistence and visibility via getAllPrompts. Adding a migration module may be implementation detail, but it is not explicitly requested.",
       "evidence": [
-        "backend/migration.mo (new file)",
-        "backend/main.mo (imports Migration and uses '(with migration = Migration.run)')"
-      ]
-    },
-    {
-      "description": "Frontend Prompt Library page now validates category via a hard-coded VALID_CATEGORIES list and syncs URL params to filters; SEO copy mentions categories 'and more'.",
-      "reason": "Not requested by the BuildRequest (which asked only to make the new prompts visible and avoid redesign beyond what’s required).",
-      "evidence": [
-        "frontend/src/pages/PromptLibraryPage.tsx (VALID_CATEGORIES + isValidCategory + useEffect syncing URL category; SEO description includes 'and more')"
-      ]
-    },
-    {
-      "description": "React Query prompt cache behavior updated to always refetch on mount (staleTime: 0, refetchOnMount: 'always').",
-      "reason": "Not requested by the BuildRequest.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/hooks/useQueries.ts description mentions updated cache configuration)"
+        "backend/migration.mo (new file added)",
+        "backend/main.mo (imports Migration \"migration\" and wires '(with migration = Migration.run)')"
       ]
     }
   ],
-  "confidence": 0.72,
+  "confidence": 0.62,
   "changed_files": [
     "backend/main.mo",
     "backend/migration.mo",
-    "frontend-file-summaries.txt",
-    "frontend/src/pages/PromptLibraryPage.tsx",
     "project_state.json"
   ]
 }

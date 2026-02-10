@@ -10,13 +10,14 @@ export interface FilterOptions {
 export function filterPrompts(prompts: PromptRecord[], filters: FilterOptions): PromptRecord[] {
   let filtered = [...prompts];
 
-  // Text search
+  // Text search - expanded to include fullText for better discoverability
   if (filters.search.trim()) {
     const searchLower = filters.search.toLowerCase();
     filtered = filtered.filter(
       (p) =>
         p.title.toLowerCase().includes(searchLower) ||
         p.description.toLowerCase().includes(searchLower) ||
+        p.fullText.toLowerCase().includes(searchLower) ||
         p.tags.some((tag) => tag.toLowerCase().includes(searchLower))
     );
   }
